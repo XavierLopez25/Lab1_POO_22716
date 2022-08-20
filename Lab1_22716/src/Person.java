@@ -4,8 +4,8 @@ import java.util.Scanner;
 public class Person {
 
     Scanner sc = new Scanner(System.in);
-    private int trust;
-    private boolean cookie;
+    private static int trust;
+    private static boolean cookie;
 
     public Person(){
 
@@ -57,14 +57,14 @@ public class Person {
     }
 
     public void setTrust(int trust) {
-        this.trust = trust;
+        Person.trust = trust;
     }
 
-    public boolean isCookie() {
+    public static boolean isCookie() {
         return cookie;
     }
 
     public void setCookie(boolean cookie) {
-        this.cookie = cookie;
+        Person.cookie = cookie;
     }
 }

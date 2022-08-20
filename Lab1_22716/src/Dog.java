@@ -2,15 +2,15 @@ import java.util.Random;
 
 public class Dog {
 
-    private float mood;
-    private int mood_umbral;
+    private static float mood;
+    private static int mood_umbral;
 
     public float getMood() {
         return mood;
     }
 
     public void setMood(float mood) {
-        this.mood = mood;
+        Dog.mood = mood;
     }
 
     public int getMood_umbral() {
@@ -40,6 +40,16 @@ public class Dog {
     }
 
 
+    public void psican(Person person){
+        Random rand = new Random();
+        mood = (float) ((1.0/person.getTrust()) * (rand.nextFloat() - 0.5) * 10 + mood);
 
+        if(Person.isCookie()){
+            mood += (1.0 / person.getTrust()) * rand.nextInt(2);
+        }
+
+        System.out.println("\nMy new mood is: " + mood + ".\n\n");
+
+    }
 
 }

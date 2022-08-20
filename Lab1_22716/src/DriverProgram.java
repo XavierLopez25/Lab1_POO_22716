@@ -14,37 +14,31 @@ public class DriverProgram {
 
         System.out.println("\nWelcome to our training simulator! What you wanna do today?\n");
 
-        Dog dog = new Dog();
         Person person = new Person();
+        Dog dog = new Dog();
 
         while (!Program) {
 
 
 
-            System.out.println("Options: \n\t1. New Person ^-^. \n\t2. New Doggo 0_0. \n\t3. Give cookie ^^. \n\t4. Interact with doggo ^^. \n\t5. Exit Program. \n\nEnter your option, please: ");
+            System.out.println("Options: \n\t1. Show Person Data ^-^. \n\t2. Show Doggo Data 0_0. \n\t3. Give cookie ^^. \n\t4. Interact with doggo ^^. \n\t5. Create new person ^^. \n\t6. Create new doggo ^^. \n\t7. Exit Program. \n\nEnter your option, please: ");
 
             option = readInput.nextInt();
 
-            switch (option) {
-                case 1:
-                    showPersonData(person);
-                    break;
-                case 2:
-                    showDoggoData(dog);
-                    break;
-                case 3:
-                    giveCookieDoggo(person);
-                    break;
-                case 4:
-                    interactWithDoggo(dog, person);
-                    break;
-                case 5:
-                    Program = true;
-                    System.out.println("Exiting program...");
-                    break;
 
-                default:
-                    System.out.println("Only values from 1 to 5 please!");
+
+            switch (option) {
+                case 1 -> showPersonData(person);
+                case 2 -> showDoggoData(dog);
+                case 3 -> giveCookieDoggo();
+                case 4 -> interactWithDoggo(dog, person);
+                case 5 -> person = createNewPerson();
+                case 6 -> dog = createNewDoggo();
+                case 7 -> {
+                    Program = true;
+                    System.out.println("\n\nExiting program...\n\n");
+                }
+                default -> System.out.println("\n\nOnly values from 1 to 5 please!\n\n");
             }
         }
 
@@ -56,36 +50,40 @@ public class DriverProgram {
 
         int cookies;
 
-        if (person.isCookie()){
+        if (Person.isCookie()){
             cookies = 1;
         }else{
             cookies = 0;
         }
 
-        System.out.println("Person:\n\n\tFiability: " + person.getTrust() + "\n\tCookies: " + cookies);
+        System.out.println("\n\nPerson:\n\n\tFiability: " + person.getTrust() + "\n\tCookies: " + cookies + "\n\n");
     }
 
     public static void showDoggoData(Dog doggo){
-        System.out.println("Doggo:\n\n\tMood: " + doggo.getMood() + "\n\tMood Umbral: " + doggo.getMood_umbral());
+        System.out.println("\n\nDoggo:\n\n\tMood: " + doggo.getMood() + "\n\tMood Umbral: " + doggo.getMood_umbral() + "\n\n");
     }
-//    public static Person createNewPerson() {
-//        Person person = new Person();
-//        showPersonData(person);
-//        return person;
-//    }
-//    public static Dog createNewDoggo() {
-//        Dog doggo = new Dog();
-//        showDoggoData(doggo);
-//        return doggo;
-//    }
 
-    public static int giveCookieDoggo(Person person){
 
-        if(person.isCookie()){
-            System.out.println("You gave a cookie to the doggo, its mood seems to improve...");
+    public static Person createNewPerson() {
+        System.out.println("\n\nCreando nueva persona...\n\n");
+        Person person = new Person();
+        showPersonData(person);
+        return person;
+    }
+    public static Dog createNewDoggo() {
+        System.out.println("\n\nCreando nuevo perro...\n\n");
+        Dog doggo = new Dog();
+        showDoggoData(doggo);
+        return doggo;
+    }
+
+    public static int giveCookieDoggo(){
+
+        if(Person.isCookie()){
+            System.out.println("\n\nYou gave a cookie to the doggo, its mood seems to improve...\n\n");
             return 5;
         }else{
-            System.out.println("Sorry, we ran out of cookies :(");
+            System.out.println("\n\nSorry, we ran out of cookies :(\n\n");
             return 0;
         }
 
@@ -107,16 +105,14 @@ public class DriverProgram {
         else if ((dog.getMood()<0)&&(dog.getMood()>dog.getMood_umbral())){
             {
                 dog.DoggoBarks();
-                if(person.isCookie()){
+                if(Person.isCookie()){
                     person.fearAndCookie();
-                    dog.setMood(dog.getMood() + giveCookieDoggo(person));
-                    showDoggoData(dog);
-                    showPersonData(person);
+                    dog.setMood(dog.getMood() + giveCookieDoggo());
                 }else{
                     person.fear();
-                    showDoggoData(dog);
-                    showPersonData(person);
                 }
+                showDoggoData(dog);
+                showPersonData(person);
 
             }
         }
@@ -124,6 +120,8 @@ public class DriverProgram {
             dog.DoggoMovesTail();
             person.patDoggo();
         }
+
+        dog.psican(person);
 
     }
 
